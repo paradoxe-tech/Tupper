@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 const apiPath = path.join(ROOT, '/server/src/api');
 for(let endpoint of fs.readdirSync(apiPath)) {
   let imported = await import(path.join(apiPath, endpoint));
-  imported.default(app, ROOT, database);
+  imported.default(app, ROOT);
 }
 
 // serve static files from the React app
