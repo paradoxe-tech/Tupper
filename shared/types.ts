@@ -19,6 +19,8 @@ export interface Place {
   city: string;
   postcode: string;
   country: string;
+  latitude: number;
+  longitude: number;
 }
 
 type ContactId = string; // '@'+ str(int)
