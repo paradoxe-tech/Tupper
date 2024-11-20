@@ -1,0 +1,1 @@
+export const highlightColor = "#8a2be2";
