@@ -1,20 +1,29 @@
-import { Network } from "inspector";
-
-export interface Job {
+interface Job {
   company: string;
   title: string;
 }
 
 type RelType = string;
 type Target = string;
-export type Relation = [RelType, Target];
+type Relation = [RelType, Target];
 
 type Network = string;
 type Username = string;
-export type Connexion = [Network, Username];
+type Connexion = [Network, Username];
 
+type PlaceId = string; // '#' + str(int)
+export interface Place {
+  id: PlaceId;
+  address: string;
+  complement: string;
+  city: string;
+  postcode: string;
+  country: string;
+}
+
+type ContactId = string; // '@'+ str(int)
 export interface Contact {
-  id: number;
+  id: ContactId;
   civil: {
     first: string;
     second: string;
@@ -24,19 +33,13 @@ export interface Contact {
   };
   birth: {
     date: string;
-    hour: string;
-    city: string;
-    postcode: string;
-    country: string;
+    location: PlaceId;
   };
   death: {
     date: string;
-    hour: string;
-    city: string;
-    postcode: string;
-    country: string;
+    location: PlaceId;
   };
-  location: string; // foyer
+  location: PlaceId[];
   LGBT: {
     orientation: string;
     gender: string;
