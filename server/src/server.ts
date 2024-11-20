@@ -20,6 +20,7 @@ for(let endpoint of fs.readdirSync(apiPath)) {
 
 // serve static files from the React app
 app.use(express.static(path.join(ROOT, "/client/dist")));
+app.use(express.static(path.join(ROOT, "/public")));
 
 // serve the React app for any route !== /api
 app.get("*", (req, res) => {
