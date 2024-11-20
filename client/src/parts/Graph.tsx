@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ForceDirectedGraphChart } from "chartjs-chart-graph";
 import { Contact as ContactData } from "../../../shared/types";
 import { identifier } from '../../../shared/identifier';
+import { highlightColor } from "../../../shared/palette";
 
 type GraphProps = {
   contacts: ContactData[];
@@ -42,12 +43,14 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
           {
             data: nodes,
             edges: edges as any,
-            pointBackgroundColor: "steelblue"
+            pointBackgroundColor: highlightColor,
+            pointRadius: 6
           },
         ],
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         onClick: (event, elements) => {
           if (elements.length > 0) {
             const nodeIndex = elements[0].index;
@@ -56,6 +59,17 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
             if(contact) setSelectedContact(contact);
           }
         },
+        plugins: {
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: (tooltipItem) => {
+                const node = tooltipItem.raw;
+                return `Nom : ${node.name}`;
+              },
+            },
+          }
+        }
       },
     });
 
@@ -65,6 +79,6 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
   }, [contacts]);
 
   return (
-    <canvas ref={chartRef} width={400} height={400}></canvas>
+    <canvas className="py-20 px-40" ref={chartRef}></canvas>
   );
 };

@@ -38,7 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onContactSelect }) => {
 
   return (
     <aside className="bg-gray-100 w-64 p-4 flex flex-col h-screen">
-      <div className="mb-4 text-xl font-bold">Logo</div>
+      <img className="mb-4" src="/logo.png" />
       <div className="mb-4">
         <input
           type="text"

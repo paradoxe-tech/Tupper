@@ -7,6 +7,7 @@ import { Sidebar } from "./parts/Sidebar";
 import { Contact } from "./parts/Contact";
 import { Contact as ContactData, Place } from "../../shared/types";
 import { ContactGraph } from "./parts/Graph";
+import { MapView } from "./parts/Map";
 
 const App: React.FC = () => {
   const [activeContent, setActiveContent] = useState("graph");
@@ -43,10 +44,10 @@ const App: React.FC = () => {
         <Navbar onSelect={setActiveContent} />
         <div className="flex flex-1 fixed w-screen">
           <Sidebar onContactSelect={handleContactSelection} contacts={contacts} />
-          <main className="relative flex-1 mt-12 w-full p-4 bg-gray-50">
+          <main className="relative flex-1 mt-12 w-full bg-gray-50">
             <div className="w-full h-full" onClick={() => togglePopup(false)}>
               {activeContent === "explore" && <div>Explorer Content</div>}
-              {activeContent === "map" && <div>Map Content</div>}
+              {activeContent === "map" && <MapView places={places} />}
               {activeContent === "graph" && 
                 <ContactGraph 
                   contacts={contacts} 

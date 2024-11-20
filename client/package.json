@@ -24,10 +24,15 @@
     "vite": "^3.2.11"
   },
   "dependencies": {
+    "@maptiler/leaflet-maptilersdk": "^2.0.0",
+    "@types/leaflet": "^1.9.14",
+    "@types/react-leaflet": "^3.0.0",
     "chart.js": "^4.4.6",
     "chartjs-chart-graph": "^4.3.4",
+    "leaflet": "^1.9.4",
     "react-aria": "^3.35.0",
     "react-aria-components": "^1.4.0",
+    "react-leaflet": "^4.2.1",
     "tailwind-variants": "^0.2.1"
   }
 }
