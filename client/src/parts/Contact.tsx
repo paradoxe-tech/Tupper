@@ -54,12 +54,12 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
             <div className="space-y-2">
               <Field type="date" icon="gift" value={user.birth.date} />
               <Field type="text" icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
-              {
+              {user.location.length > 0 ?
                 user.location.map((placeId) => {
                   let place = places.find(p => p.id == placeId)
                   if(!place) return <></>;
                   return <Field type="place" icon="home" value={JSON.stringify(place)} />
-                })
+                }) : <></>
               }
             </div>
           )}
