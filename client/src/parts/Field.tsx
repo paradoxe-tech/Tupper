@@ -11,14 +11,18 @@ export const Field: React.FC<props> = ({ icon, value, type }) => {
   
   if(type == "text") {
     
-    if(value.length == 0) content =
-      <input className="w-full bg-gray-200 px-3 py-1 rounded-md"
-        type="text" placeholder="Entrez une nouvelle valeur" />
+    if(value.length == 0) return <></>;
     else content = <span className={defaultClass}>{value}</span>
     
   } else if(type == "date") {
-    content = <span className={defaultClass + clickable}>
-      {parseDate(value, "dd-MM-yyyy")}</span>
+    
+    try {
+      content = <span className={defaultClass + clickable}>
+        {parseDate(value, "dd-MM-yyyy")}</span>
+    } catch {
+      return <></>;
+    }
+    
   } else if(type == "link") {
     
     content = <a 
