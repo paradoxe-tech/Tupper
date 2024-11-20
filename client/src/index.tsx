@@ -58,7 +58,7 @@ const App: React.FC = () => {
           </main>
         </div>
       </div>
-      <div className={`fixed top-0 h-screen w-screen ${popup ? "" : "pointer-events-none"}`}>
+      <div className={`z-30 fixed top-0 h-screen w-screen ${popup ? "" : "pointer-events-none"}`}>
         {popup && <div className="relative h-screen w-screen">
         <div className="smokescreen h-full w-full bg-gray-500 opacity-50"
           onClick={() => togglePopup(false)}></div>
