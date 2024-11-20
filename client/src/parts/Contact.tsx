@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { Contact as ContactData } from '../../../shared/types';
 import { identifier } from "../../../shared/identifier";
+import { Field } from './Field';
+import { Icon } from './Icon';
 
 interface ProfileProps {
   user: ContactData;
 }
-
-const Icon: React.FC<{ name: string }> = ({ name }) => {
-  return (
-    <div className="mr-3 inline-block">
-      <ion-icon name={name}></ion-icon>
-    </div>
-  );
-};
 
 function CatButton({ icon, name, tabHook }) {
   const [activeTab, setActiveTab] = tabHook;
@@ -24,16 +18,6 @@ function CatButton({ icon, name, tabHook }) {
       }`} onClick={ () => setActiveTab(name) }>
       <Icon name={icon} />
     </button>
-  );
-};
-
-const Field: React.FC<{ icon: string, value: string }> = ({ icon, value }) => {
-  if(value.length == 0) return <></>
-  return (
-    <p>
-      <Icon name={icon} />
-      <span className="w-full bg-gray-200 px-3 py-1 rounded-md">{value}</span>
-    </p>
   );
 };
 
@@ -66,16 +50,16 @@ export const Contact: React.FC<ProfileProps> = ({ user }) => {
         <div className="mt-4 h-40 pt-1 overflow-auto">
           {activeTab === "info" && (
             <div className="space-y-2">
-              <Field icon="gift" value={user.birth.date} />
-              <Field icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
+              <Field type="date" icon="gift" value={user.birth.date} />
+              <Field type="text" icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
             </div>
           )}
 
           {activeTab === "relations" && (
             <div className="space-y-2">
               {user.relations.length > 0 ? (
-                user.relations.map((relation, index) => (
-                  <Field icon="heart" value={relation} />
+                user.relations.map(([type, target]) => (
+                  <Field type="text" icon="heart" value={target} />
                 ))
               ) : (
                 <p>Aucune relation enregistrée.</p>
@@ -85,14 +69,20 @@ export const Contact: React.FC<ProfileProps> = ({ user }) => {
 
           {activeTab === "socials" && (
             <div className="space-y-2">
-              <p>Les informations de réseaux sociaux ne sont pas disponibles pour le moment.</p>
+              {user.socials && user.socials.length > 0 ? (
+                user.socials.map(([network, username]) => (
+                  <Field type="text" icon={network} value={username} />
+                ))
+              ) : (
+                <p>Aucun réseau enregistré.</p>
+              )}
             </div>
           )}
 
           {activeTab === "contact" && (
             <div className="space-y-2">
-              <Field icon="call" value={user.mobile} />
-              <Field icon="at" value={user.email} />
+              <Field type="text" icon="call" value={user.mobile} />
+              <Field type="text" icon="at" value={user.email} />
             </div>
           )}
 

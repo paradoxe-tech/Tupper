@@ -1,3 +1,18 @@
+import { Network } from "inspector";
+
+export interface Job {
+  company: string;
+  title: string;
+}
+
+type RelType = string;
+type Target = string;
+export type Relation = [RelType, Target];
+
+type Network = string;
+type Username = string;
+export type Connexion = [Network, Username];
+
 export interface Contact {
   id: number;
   civil: {
@@ -21,24 +36,16 @@ export interface Contact {
     postcode: string;
     country: string;
   };
-  location: {
-    address: string;
-    complement: string;
-    city: string;
-    postcode: string;
-    country: string;
-  };
+  location: string; // foyer
   LGBT: {
     orientation: string;
     gender: string;
     trans: boolean;
   };
-  job: {
-    company: string;
-    title: string;
-  };
+  job: Job[];
   mobile: string;
   email: string;
   photos: string[];
-  relations: string[][];
+  relations: Relation[];
+  socials: Connexion[];
 }
