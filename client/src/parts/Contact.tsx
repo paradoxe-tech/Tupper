@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Contact as ContactData } from '../../../shared/types';
+import { Contact as ContactData, Place } from '../../../shared/types';
 import { identifier } from "../../../shared/identifier";
 import { Field } from './Field';
 import { Icon } from './Icon';
+import { supportedSocials } from "../../../shared/socials";
 
 interface ProfileProps {
   user: ContactData;
+  places: Place[];
 }
 
 function CatButton({ icon, name, tabHook }) {
@@ -21,9 +23,9 @@ function CatButton({ icon, name, tabHook }) {
   );
 };
 
-export const Contact: React.FC<ProfileProps> = ({ user }) => {
+export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
   const [activeTab, setActiveTab] = useState("info");
-  const tabState = [activeTab, setActiveTab]
+  const tabState = [activeTab, setActiveTab];
   
   return (
     <div className="absolute abs-center max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden w-96	h-">
@@ -52,6 +54,13 @@ export const Contact: React.FC<ProfileProps> = ({ user }) => {
             <div className="space-y-2">
               <Field type="date" icon="gift" value={user.birth.date} />
               <Field type="text" icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
+              {
+                user.location.map((placeId) => {
+                  let place = places.find(p => p.id == placeId)
+                  if(!place) return <></>;
+                  return <Field type="place" icon="home" value={JSON.stringify(place)} />
+                })
+              }
             </div>
           )}
 
@@ -71,7 +80,9 @@ export const Contact: React.FC<ProfileProps> = ({ user }) => {
             <div className="space-y-2">
               {user.socials && user.socials.length > 0 ? (
                 user.socials.map(([network, username]) => (
-                  <Field type="text" icon={network} value={username} />
+                  <Field type="link" 
+                    icon={supportedSocials[network].icon} 
+                    value={`${username};${supportedSocials[network].url.replace('$u', username)}`} />
                 ))
               ) : (
                 <p>Aucun réseau enregistré.</p>

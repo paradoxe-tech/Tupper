@@ -5,27 +5,31 @@ import './App.css';
 import { Navbar } from "./parts/Navbar";
 import { Sidebar } from "./parts/Sidebar";
 import { Contact } from "./parts/Contact";
-import { Contact as ContactData } from "../../shared/types";
+import { Contact as ContactData, Place } from "../../shared/types";
 import { ContactGraph } from "./parts/Graph";
 
 const App: React.FC = () => {
   const [activeContent, setActiveContent] = useState("graph");
   const [selectedContact, setSelectedContact] = useState<ContactData | null>(null);
   const [contacts, setContacts] = useState<ContactData[]>([]);
+  const [places, setPlaces] = useState<Place[]>([]);
   const [popup, togglePopup] = useState(false);
 
+  type Setter = React.Dispatch<React.SetStateAction<any[]>>
+
   useEffect(() => {
-    const fetchContacts = async () => {
+    const retrieveData = async (endpoint: string, setter: Setter) => {
       try {
-        const response = await fetch("/api/contacts");
+        const response = await fetch(endpoint);
         const data = await response.json();
-        setContacts(data);
+        setter(data);
       } catch (error) {
-        console.error("Erreur lors du chargement des contacts:", error);
+        console.error(`Erreur lors du chargement de ${endpoint}:`, error);
       }
     };
 
-    fetchContacts();
+    retrieveData("/api/contacts", setContacts);
+    retrieveData("/api/places", setPlaces);
   }, []);
 
   function handleContactSelection(contact: ContactData) {
@@ -58,7 +62,7 @@ const App: React.FC = () => {
         {popup && <div className="relative h-screen w-screen">
         <div className="smokescreen h-full w-full bg-gray-500 opacity-50"
           onClick={() => togglePopup(false)}></div>
-        {selectedContact && <Contact user={selectedContact} />}
+        {selectedContact && <Contact user={selectedContact} places={places} />}
       </div>}
       </div>
     </div>
