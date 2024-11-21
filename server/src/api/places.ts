@@ -15,7 +15,6 @@ export default async function run(app, ROOT: string) {
       for (let place of data) {
         let coords = [0, 0];
         let result = await placeToCoords(place);
-        console.log(result);
         if (result) coords = result;
 
         let [lng, lat] = coords;
