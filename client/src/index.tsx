@@ -41,10 +41,9 @@ const App: React.FC = () => {
   return (
     <div>
       <div className="flex flex-col h-screen">
-        <Navbar onSelect={setActiveContent} />
         <div className="flex flex-1 fixed w-screen">
-          <Sidebar onContactSelect={handleContactSelection} contacts={contacts} />
-          <main className="relative flex-1 mt-12 w-full bg-gray-50">
+          <Sidebar onSelect={setActiveContent} />
+          <main className="relative flex-1 w-full bg-gray-50">
             <div className="w-full h-full" onClick={() => togglePopup(false)}>
               {activeContent === "explore" && <div>Explorer Content</div>}
               {activeContent === "map" && <MapView places={places} />}
