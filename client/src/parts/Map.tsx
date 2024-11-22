@@ -20,7 +20,7 @@ export const MapView: React.FC<MapProps> = ({ places }) => {
       container: mapContainer.current!,
       style: "https://api.maptiler.com/maps/379d136c-a428-43af-8262-ece4ba972a44/style.json?key=3osg94AHkXsO4NqeccMX",
       center: [2.434, 46.84],
-      zoom: 5,
+      zoom: 3,
     });
 
     places.forEach((place) => {
@@ -33,7 +33,7 @@ export const MapView: React.FC<MapProps> = ({ places }) => {
           )
         );
     });
-  }, [places, 2.434, 46.84, 5]);
+  }, [places, 2.434, 46.84, 1]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
