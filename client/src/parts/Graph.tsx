@@ -44,7 +44,7 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
             data: nodes,
             edges: edges as any,
             pointBackgroundColor: highlightColor,
-            pointRadius: 6
+            pointRadius: 8
           },
         ],
       },
@@ -79,6 +79,10 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
   }, [contacts]);
 
   return (
-    <canvas className="py-20 px-40" ref={chartRef}></canvas>
+    <div className="p-[50px] w-full h-full">
+      <div className="w-full h-full">
+        <canvas ref={chartRef}></canvas>
+      </div>
+    </div>
   );
 };
