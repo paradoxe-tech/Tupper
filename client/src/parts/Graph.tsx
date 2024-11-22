@@ -6,10 +6,10 @@ import { highlightColor } from "../../../shared/palette";
 
 type GraphProps = {
   contacts: ContactData[];
-  setSelectedContact: Function;
+  popContact: Function;
 }
 
-export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
+export function ContactGraph({ contacts, popContact }:GraphProps) {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function ContactGraph({ contacts, setSelectedContact }:GraphProps) {
             const nodeIndex = elements[0].index;
             const node = nodes[nodeIndex];
             const contact = contacts.find(c => identifier(c) == node.name) 
-            if(contact) setSelectedContact(contact);
+            if(contact) popContact(contact);
           }
         },
         plugins: {

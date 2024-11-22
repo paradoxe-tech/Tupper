@@ -15,7 +15,7 @@ import { Dashboard } from "./parts/Dashboard";
 
 const App: React.FC = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
-  const [selectedContact, setSelectedContact] = useState<ContactData | null>(null);
+  const [popContact, setPopContact] = useState<ContactData | null>(null);
   const [contacts, setContacts] = useState<ContactData[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [popup, togglePopup] = useState(false);
@@ -38,7 +38,7 @@ const App: React.FC = () => {
   }, []);
 
   function handleContactSelection(contact: ContactData) {
-    setSelectedContact(contact);
+    setPopContact(contact);
     togglePopup(true);
   }
 
@@ -48,31 +48,31 @@ const App: React.FC = () => {
         <div className="flex flex-1 fixed w-screen">
           <Sidebar onSelect={setActiveContent} />
           <main className="relative h-screen flex-1 w-full bg-gray-50">
-            <div className="w-full h-full" onClick={() => togglePopup(false)}>
+            <div className="w-full h-full">
               {activeContent === "dashboard" && 
                 <Dashboard left={<Explorer 
                   contacts={contacts}
-                  setSelectedContact={handleContactSelection} />} 
+                  popContact={handleContactSelection} />} 
                 topRight={<ContactGraph 
                   contacts={contacts} 
-                  setSelectedContact={handleContactSelection} />}
+                  popContact={handleContactSelection} />}
                 middleRight={<MapView places={places} />}
                 bottomRight={<div></div>} />
               }
               {activeContent === "explore" && 
                 <Explorer 
                   contacts={contacts}
-                  setSelectedContact={handleContactSelection} />
+                  popContact={handleContactSelection} />
               }
               {activeContent === "map" && 
                 <MapView 
                   places={places} 
-                  setSelectedContact={handleContactSelection} />
+                  popContact={handleContactSelection} />
               }
               {activeContent === "graph" && 
                 <ContactGraph 
                   contacts={contacts} 
-                  setSelectedContact={handleContactSelection} />
+                  popContact={handleContactSelection} />
               }
               {activeContent === "tree" && <div>Pas de contenu de généalogie pour l'instant.</div>}
               {activeContent === "tools" && <div>Pas d'outils pour l'instant.</div>}
@@ -84,7 +84,7 @@ const App: React.FC = () => {
         {popup && <div className="relative h-screen w-screen">
         <div className="smokescreen h-full w-full bg-gray-500 opacity-50"
           onClick={() => togglePopup(false)}></div>
-        {selectedContact && <Contact user={selectedContact} places={places} />}
+        {popContact && <Contact user={popContact} places={places} />}
       </div>}
       </div>
     </div>
