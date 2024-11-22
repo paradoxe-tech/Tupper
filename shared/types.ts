@@ -1,6 +1,11 @@
-interface Job {
-  company: string;
+type Datestring = string;
+
+export interface Organization {
+  name: string;
   title: string;
+  from: Datestring;
+  to: Datestring;
+  childs: Organization[];
 }
 
 type RelType = string;
@@ -10,6 +15,8 @@ type Relation = [RelType, Target];
 type Network = string;
 type Username = string;
 type Connexion = [Network, Username];
+
+type Group = string; // 'G' + str(int)
 
 type PlaceId = string; // '#' + str(int)
 export interface Place {
@@ -34,11 +41,11 @@ export interface Contact {
     suffix: string;
   };
   birth: {
-    date: string;
+    date: Datestring;
     location: PlaceId;
   };
   death: {
-    date: string;
+    date: Datestring;
     location: PlaceId;
   };
   location: PlaceId[];
@@ -47,10 +54,11 @@ export interface Contact {
     gender: string;
     trans: boolean;
   };
-  job: Job[];
+  job: Organization[];
   mobile: string;
   email: string;
   photos: string[];
   relations: Relation[];
   socials: Connexion[];
+  groups: Group[];
 }
