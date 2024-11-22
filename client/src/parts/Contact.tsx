@@ -93,9 +93,9 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
 
           {activeTab === "journey" && (
             <div className="space-y-2">
-              {organizationsTitles(user.job).map(title => (
+              {user.job.length > 0 ? organizationsTitles(user.job).map(title => (
                 <Field type="text" icon="briefcase" value={title} />
-              ))}
+              )) : <p>Aucun élément de parcours.</p>}
             </div>
           )}
         </div>
