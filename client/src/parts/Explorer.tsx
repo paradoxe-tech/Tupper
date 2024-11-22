@@ -6,9 +6,10 @@ import { Icon } from "./Icon";
 type ExplorerProps = {
   contacts: Contact[];
   popContact: Function;
+  newContact: Function;
 };
 
-export const Explorer: React.FC<ExplorerProps> = ({ contacts, popContact }) => {
+export const Explorer: React.FC<ExplorerProps> = ({ contacts, popContact, newContact }) => {
   const [selectedContacts, setSelectedContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
 
@@ -33,7 +34,7 @@ export const Explorer: React.FC<ExplorerProps> = ({ contacts, popContact }) => {
           {filteredContacts.length} contact{filteredContacts.length > 1 ? "s" : ""} ({selectedContacts.length} séléctionné{filteredContacts.length > 1 ? "s" : ""})
         </span>
         <div className="flex space-x-2">
-          <button className={bttnClass}>
+          <button className={bttnClass} onClick={() => newContact()}>
             <Icon name="add" />
             <span>Nouveau</span>
           </button>

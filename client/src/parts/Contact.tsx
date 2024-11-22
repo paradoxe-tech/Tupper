@@ -17,9 +17,9 @@ function CatButton({ icon, name, tabHook }) {
   return (
     <button
       className={`py-2 px-4 ${
-        activeTab === name ? "text-blue-500 font-bold" : "text-gray-500"
+        activeTab === name ? "text-purple-500 font-bold" : "text-gray-500"
       }`} onClick={ () => setActiveTab(name) }>
-      <Icon name={icon} />
+      <Icon name={icon} fill={activeTab === name} />
     </button>
   );
 };

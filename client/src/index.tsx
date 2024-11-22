@@ -12,9 +12,11 @@ import { ContactGraph } from "./parts/Graph";
 import { MapView } from "./parts/Map";
 import { Explorer } from "./parts/Explorer";
 import { Dashboard } from "./parts/Dashboard";
+import { ContactForm } from "./parts/Form";
 
 const App: React.FC = () => {
   const [activeContent, setActiveContent] = useState("dashboard");
+  const [popupState, setPopupState] = useState("");
   const [popContact, setPopContact] = useState<ContactData | null>(null);
   const [contacts, setContacts] = useState<ContactData[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
@@ -40,6 +42,12 @@ const App: React.FC = () => {
   function handleContactSelection(contact: ContactData) {
     setPopContact(contact);
     togglePopup(true);
+    setPopupState("contact")
+  }
+
+  function newContact() {
+    togglePopup(true);
+    setPopupState("new")
   }
 
   return (
@@ -52,7 +60,8 @@ const App: React.FC = () => {
               {activeContent === "dashboard" && 
                 <Dashboard left={<Explorer 
                   contacts={contacts}
-                  popContact={handleContactSelection} />} 
+                  popContact={handleContactSelection}
+                  newContact={newContact}/>} 
                 topRight={<ContactGraph 
                   contacts={contacts} 
                   popContact={handleContactSelection} />}
@@ -62,7 +71,8 @@ const App: React.FC = () => {
               {activeContent === "explore" && 
                 <Explorer 
                   contacts={contacts}
-                  popContact={handleContactSelection} />
+                  popContact={handleContactSelection} 
+                  newContact={newContact} />
               }
               {activeContent === "map" && 
                 <MapView 
@@ -84,7 +94,9 @@ const App: React.FC = () => {
         {popup && <div className="relative h-screen w-screen">
         <div className="smokescreen h-full w-full bg-gray-500 opacity-50"
           onClick={() => togglePopup(false)}></div>
-        {popContact && <Contact user={popContact} places={places} />}
+        {popupState == "contact" && popContact && <Contact user={popContact} places={places} />}
+        {popupState == "new" &&  <ContactForm 
+           existingContacts={contacts} onSubmit={(c) => console.log(c)} />}
       </div>}
       </div>
     </div>

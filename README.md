@@ -8,16 +8,24 @@ Tupper is a feature-rich, advanced contact management web application. Designed 
   - Create, edit and delete contacts
   - Import/export data from other apps
   - Organize contacts into groups
+
+
 - **🌍 Interactive map of contact locations**
+
+
 - **📱 Social Media integration for each contact**
+
+
 - **🤝 Comprehensive relationship system**
   - Declare relationships between contacts (supports backlinks)
   - Generate an interactive relational graph
-  - Quick genealogical panel based on declared family relations
+  - Quick genealogical panel based on parent-child relations
+
+
 - **💼 Enhanced group management with Organizations**
-  - Define organizations (e.g., companies, schools) and associate contacts with them
-  - Group contacts by shared organizations (e.g., all students of a particular school)
-  - Create infinite sub-organizations for detailed grouping (e.g., a specific class)
+  - Define organizations (e.g., companies, schools)
+  - Group contacts by shared organizations 
+  - Create infinite sub-organizations for detailed grouping
 
 ## Tech Stack
 
