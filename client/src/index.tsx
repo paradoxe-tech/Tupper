@@ -14,7 +14,7 @@ import { Explorer } from "./parts/Explorer";
 import { Dashboard } from "./parts/Dashboard";
 
 const App: React.FC = () => {
-  const [activeContent, setActiveContent] = useState("graph");
+  const [activeContent, setActiveContent] = useState("dashboard");
   const [selectedContact, setSelectedContact] = useState<ContactData | null>(null);
   const [contacts, setContacts] = useState<ContactData[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
@@ -74,7 +74,8 @@ const App: React.FC = () => {
                   contacts={contacts} 
                   setSelectedContact={handleContactSelection} />
               }
-              {activeContent === "tree" && <div>Tree Content</div>}
+              {activeContent === "tree" && <div>Pas de contenu de généalogie pour l'instant.</div>}
+              {activeContent === "tools" && <div>Pas d'outils pour l'instant.</div>}
             </div>
           </main>
         </div>
