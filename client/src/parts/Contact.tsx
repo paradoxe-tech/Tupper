@@ -25,7 +25,7 @@ function CatButton({ icon, name, tabHook }) {
 };
 
 export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
-  const [activeTab, setActiveTab] = useState("info");
+  const [activeTab, setActiveTab] = useState("contact");
   const tabState = [activeTab, setActiveTab];
   
   return (
@@ -43,9 +43,8 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
         </h2>
 
         <div className="flex justify-around mt-4 border-b">
-          <CatButton icon="book" name="info" tabHook={tabState} />
           <CatButton icon="id-card" name="contact" tabHook={tabState} />
-          <CatButton icon="globe" name="socials" tabHook={tabState} />
+          <CatButton icon="book" name="info" tabHook={tabState} />
           <CatButton icon="people" name="relations" tabHook={tabState} />
           <CatButton icon="briefcase" name="journey" tabHook={tabState} />
         </div>
@@ -53,15 +52,7 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
         <div className="mt-4 h-40 pt-1 overflow-auto">
           {activeTab === "info" && (
             <div className="space-y-2">
-              <Field type="date" icon="gift" value={user.birth.date} />
-              <Field type="text" icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
-              {user.location.length > 0 ?
-                user.location.map((placeId) => {
-                  let place = places.find(p => p.id == placeId)
-                  if(!place) return <></>;
-                  return <Field type="place" icon="home" value={JSON.stringify(place)} />
-                }) : <></>
-              }
+              <p>Aucune information supplémentaire.</p>
             </div>
           )}
 
@@ -77,24 +68,26 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
             </div>
           )}
 
-          {activeTab === "socials" && (
+          {activeTab === "contact" && (
             <div className="space-y-2">
-              {user.socials && user.socials.length > 0 ? (
+              <Field type="date" icon="gift" value={user.birth.date} />
+              <Field type="text" icon="heart" value={`${user.LGBT.gender} ${user.LGBT.trans ? 'trans' : 'cis'}genre ${user.LGBT.orientation}`} />
+              {user.location.length > 0 ?
+                user.location.map((placeId) => {
+                  let place = places.find(p => p.id == placeId)
+                  if(!place) return <></>;
+                  return <Field type="place" icon="home" value={JSON.stringify(place)} />
+                }) : <></>
+              }
+              <Field type="text" icon="call" value={user.mobile} />
+              <Field type="text" icon="at" value={user.email} />
+              {user.socials && user.socials.length > 0 && (
                 user.socials.map(([network, username]) => (
                   <Field type="link" 
                     icon={supportedSocials[network].icon} 
                     value={`${username};${supportedSocials[network].url.replace('$u', username)}`} />
                 ))
-              ) : (
-                <p>Aucun réseau enregistré.</p>
               )}
-            </div>
-          )}
-
-          {activeTab === "contact" && (
-            <div className="space-y-2">
-              <Field type="text" icon="call" value={user.mobile} />
-              <Field type="text" icon="at" value={user.email} />
             </div>
           )}
 
