@@ -5,9 +5,13 @@ import './App.css';
 import { Navbar } from "./parts/Navbar";
 import { Sidebar } from "./parts/Sidebar";
 import { Contact } from "./parts/Contact";
+
 import { Contact as ContactData, Place } from "../../shared/types";
+
 import { ContactGraph } from "./parts/Graph";
 import { MapView } from "./parts/Map";
+import { Explorer } from "./parts/Explorer";
+import { Dashboard } from "./parts/Dashboard";
 
 const App: React.FC = () => {
   const [activeContent, setActiveContent] = useState("graph");
@@ -43,17 +47,34 @@ const App: React.FC = () => {
       <div className="flex flex-col h-screen">
         <div className="flex flex-1 fixed w-screen">
           <Sidebar onSelect={setActiveContent} />
-          <main className="relative flex-1 w-full bg-gray-50">
+          <main className="relative h-screen flex-1 w-full bg-gray-50">
             <div className="w-full h-full" onClick={() => togglePopup(false)}>
-              {activeContent === "explore" && <div>Explorer Content</div>}
-              {activeContent === "map" && <MapView places={places} />}
+              {activeContent === "dashboard" && 
+                <Dashboard left={<Explorer 
+                  contacts={contacts}
+                  setSelectedContact={handleContactSelection} />} 
+                topRight={<ContactGraph 
+                  contacts={contacts} 
+                  setSelectedContact={handleContactSelection} />}
+                middleRight={<MapView places={places} />}
+                bottomRight={<div></div>} />
+              }
+              {activeContent === "explore" && 
+                <Explorer 
+                  contacts={contacts}
+                  setSelectedContact={handleContactSelection} />
+              }
+              {activeContent === "map" && 
+                <MapView 
+                  places={places} 
+                  setSelectedContact={handleContactSelection} />
+              }
               {activeContent === "graph" && 
                 <ContactGraph 
                   contacts={contacts} 
                   setSelectedContact={handleContactSelection} />
               }
               {activeContent === "tree" && <div>Tree Content</div>}
-              {activeContent === "organisation" && <div>Orga Content</div>}
             </div>
           </main>
         </div>
