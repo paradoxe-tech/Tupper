@@ -4,6 +4,7 @@ import { identifier } from "../../../shared/identifier";
 import { Field } from './Field';
 import { Icon } from './Icon';
 import { supportedSocials } from "../../../shared/socials";
+import { organizationsTitles } from "../../../shared/orgaTitles";
 
 interface ProfileProps {
   user: ContactData;
@@ -99,7 +100,9 @@ export const Contact: React.FC<ProfileProps> = ({ user, places }) => {
 
           {activeTab === "journey" && (
             <div className="space-y-2">
-              <p>Les informations de parcours ne sont pas disponibles pour le moment.</p>
+              {organizationsTitles(user.job).map(title => (
+                <Field type="text" icon="briefcase" value={title} />
+              ))}
             </div>
           )}
         </div>
