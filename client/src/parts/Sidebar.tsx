@@ -10,7 +10,7 @@ export const Sidebar: React.FC<{ onSelect: (option: string) => void }> = ({ onSe
   };
 
   const btnClass = (option: string) =>
-    `border flex items-center p-2.5 bg-white text-left px-5 w-full rounded-md hover:bg-gray-50 ${
+    `border flex gap-3 items-center p-2.5 bg-white text-left px-5 w-full rounded-md hover:bg-gray-50 ${
       activeOption === option ? "text-purple-500" : "text-black"
     }`;
   

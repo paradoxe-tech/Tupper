@@ -40,9 +40,9 @@ export const Field: React.FC<props> = ({ icon, value, type }) => {
   }
   
   return (
-    <p>
+    <div className="flex gap-3">
       <Icon name={icon} />
       {content}
-    </p>
+    </div>
   );
 };
