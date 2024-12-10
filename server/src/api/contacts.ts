@@ -3,6 +3,11 @@ import path from 'path';
 import { identifier } from '../../../shared/identifier';
 import { Contact } from '../../../shared/types';
 
+const couples: {[key: string]: string} = {
+  "parent": "child",
+  "child": "parent"
+}
+
 export default function run(app, ROOT:string) {
   app.get("/api/contacts", async (req, res) => {
     try {
@@ -16,7 +21,9 @@ export default function run(app, ROOT:string) {
         for(let [type, targetIdent] of contact.relations) {
           let target = data.find(c => identifier(c) == targetIdent)
           if(target) {
-            let relType = `~${type}`.replaceAll('~~', '')
+            let relType = type
+            if(type in couples) relType = couples[type]
+            
             let relExists = target.relations
               .find(r => r[0] == relType && r[1] == contactIdent)
             
